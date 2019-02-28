@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using http_response_exception_middleware.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace http_response_exception_middleware.Controllers
@@ -14,6 +15,8 @@ namespace http_response_exception_middleware.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            throw new BadRequestException("Oh dear...");
+            
             return new string[] { "value1", "value2" };
         }
 
