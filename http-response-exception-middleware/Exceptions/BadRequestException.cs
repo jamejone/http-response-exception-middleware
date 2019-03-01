@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Serialization;
+using Microsoft.AspNetCore.Http;
 
 namespace http_response_exception_middleware.Exceptions
 {
@@ -13,6 +14,6 @@ namespace http_response_exception_middleware.Exceptions
 
         protected BadRequestException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
-        public int HttpStatusCode => 400;
+        public int HttpStatusCode => StatusCodes.Status400BadRequest;
     }
 }

@@ -15,22 +15,26 @@ namespace http_response_exception_middleware.Middleware
                 options.Run(async context => {
                     var ex = context.Features.Get<IExceptionHandlerFeature>();
 
-                    if (ex != null)
+                    context.Response.ContentType = "application/json";
+
+                    string responseMessage;
+                    if (ex.Error is IHttpException)
                     {
-                        if (ex.Error is IHttpException)
-                        {
-                            context.Response.StatusCode = (ex.Error as IHttpException).HttpStatusCode;
-                            context.Response.ContentType = "application/json";
-
-                            var responseObject = new {
-                                message = ex.Error.Message
-                            };
-
-                            string responseBody = JsonConvert.SerializeObject(responseObject);
-
-                            await context.Response.WriteAsync(responseBody.ToString());
-                        }
+                        context.Response.StatusCode = (ex.Error as IHttpException).HttpStatusCode;
+                        responseMessage = ex.Error.Message;
                     }
+                    else 
+                    {
+                        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                        responseMessage = "internal server error :(";
+                    }
+
+                    var responseObject = new {
+                        message = responseMessage
+                    };
+                    string responseBody = JsonConvert.SerializeObject(responseObject);
+
+                    await context.Response.WriteAsync(responseBody.ToString());
                 });
             });
         }

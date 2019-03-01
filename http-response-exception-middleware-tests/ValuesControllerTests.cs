@@ -15,5 +15,14 @@ namespace http_response_exception_middleware_tests
 
             controller.Get();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void GetById_ThrowsException()
+        {
+            var controller = new ValuesController();
+
+            controller.Get(12);
+        }
     }
 }

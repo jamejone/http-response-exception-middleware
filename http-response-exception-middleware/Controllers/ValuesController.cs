@@ -24,6 +24,8 @@ namespace http_response_exception_middleware.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
+            throw new NotFoundException("Huh?");
+
             return "value";
         }
 
