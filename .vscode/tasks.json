@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/http-response-exception-middleware.csproj"
+                "${workspaceFolder}/http-response-exception-middleware/http-response-exception-middleware.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
