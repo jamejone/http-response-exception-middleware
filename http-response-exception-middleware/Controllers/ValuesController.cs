@@ -33,7 +33,7 @@ namespace http_response_exception_middleware.Controllers
         [HttpPost]
         public void Post([FromForm] string value)
         {
-            throw new Exception("Not an IHttpException");
+            throw new Exception("Not an IHttpException, so will result in an internal server error.");
         }
     }
 }
