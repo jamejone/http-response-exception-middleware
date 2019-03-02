@@ -62,5 +62,24 @@ namespace http_response_exception_middleware_tests
 
             Assert.Equal("{\"message\":\"internal server error :(\"}", responseContent);
         }
+        
+        [Fact]
+        public async Task Put_EmptyBody_Returns_BadRequest()
+        {
+            var values = new Dictionary<string, string>
+            {
+                { "value", "" }
+            };
+            
+            var requestContent = new FormUrlEncodedContent(values);
+
+            var response = await _client.PutAsync("/api/values/5", requestContent);
+
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("{\"message\":\"value is a required parameter\"}", responseContent);
+        }
     }
 }
