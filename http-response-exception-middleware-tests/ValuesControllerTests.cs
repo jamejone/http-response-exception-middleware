@@ -1,28 +1,25 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using http_response_exception_middleware.Controllers;
 using http_response_exception_middleware.Exceptions;
+using Xunit;
 
 namespace http_response_exception_middleware_tests
 {
-    [TestClass]
     public class ValuesControllerTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(BadRequestException))]
+        [Fact]
         public void Get_ThrowsException()
         {
             var controller = new ValuesController();
 
-            controller.Get();
+            var exception = Assert.Throws<BadRequestException>(() => controller.Get());
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(NotFoundException))]
+        [Fact]
         public void GetById_ThrowsException()
         {
             var controller = new ValuesController();
 
-            controller.Get(12);
+            Assert.Throws<NotFoundException>(() => controller.Get(12));
         }
     }
 }
