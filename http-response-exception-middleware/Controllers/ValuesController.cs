@@ -23,7 +23,7 @@ namespace http_response_exception_middleware.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult Get(int id)
         {
             throw new NotFoundException("Huh?");
 
@@ -39,7 +39,7 @@ namespace http_response_exception_middleware.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public ActionResult<string> Put(int id, [FromForm] string value)
+        public ActionResult Put(int id, [FromForm] string value)
         {
             if (string.IsNullOrEmpty(value))
             {
